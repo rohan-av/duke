@@ -12,7 +12,7 @@ public class Task {
         return (isDone ? "✓" : "✘"); //return tick or X symbols
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
 
