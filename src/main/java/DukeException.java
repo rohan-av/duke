@@ -1,5 +1,7 @@
-public class DukeException extends Exception{
-
+public class DukeException extends Exception {
+    /**
+     * Custom exception class for all Duke-related exceptions
+     */
     private String input;
     private String type = "other";
 
@@ -8,7 +10,7 @@ public class DukeException extends Exception{
         this.input = input;
     }
 
-    DukeException(String input, String type){
+    DukeException(String input, String type) {
         super(input);
         this.input = input;
         this.type = type;
@@ -17,18 +19,20 @@ public class DukeException extends Exception{
     public String getMessage() {
 
         String message = "An unknown exception has occurred.";
+        String word = input.trim().equals("event") ? "an " : "a ";
 
         if (input.trim().equals("todo") || input.trim().equals("event") || input.trim().equals("deadline")) {
-            message = "OOPS!!! The description of a "
-                + input.trim()
-                + " cannot be empty.";
+            message = "OOPS!!! The description of "
+                    + word
+                    + input.trim()
+                    + " cannot be empty.";
         } else if (!type.equals("other") && !type.equals("todo")) {
             switch (type) {
                 case "todo": {
                     message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
                 }
                 case "event": {
-                    if (!input.contains("/at")){
+                    if (!input.contains("/at")) {
                         message = "OOPS!!! Event is missing a location.";
                     }
                     break;

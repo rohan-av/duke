@@ -1,5 +1,9 @@
 public class Task {
 
+    /**
+     * Task class used in Duke. Extended by Event, To-Do, and Deadline
+     */
+
     protected String description;
     protected boolean isDone;
 
