@@ -35,8 +35,7 @@ public class Duke {
                     System.out.println(formatDone(list, index));
                 }
             } else {
-                list.add(new Task(command));
-                System.out.println(wrap("added: " + command));
+                addTask(command);
             }
         }
     }
@@ -51,10 +50,8 @@ public class Duke {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             result.append(i + 1)
-                    .append(". [")
-                    .append(list.get(i).getStatusIcon())
-                    .append("] ")
-                    .append(list.get(i).getDescription());
+                    .append(". ")
+                    .append(list.get(i).toString());
             if (i != list.size() - 1) {
                 result.append("\n");
             }
@@ -63,12 +60,32 @@ public class Duke {
     }
 
     private static String formatDone(ArrayList<Task> list, int index) {
-        String result = "Nice! I've marked this task as done:\n  "
-                + "["
-                + list.get(index - 1).getStatusIcon()
-                + "] "
-                + list.get(index - 1).getDescription()
+        String result = "Nice! I've marked this task as done:\n "
+                + list.get(index - 1).toString()
                 + "\n";
         return wrap(result);
+    }
+
+    private static void addTask(String command) {
+        String identifier = command.substring(0, 4);
+        switch (identifier) {
+            case "todo": {
+                ToDo todo = new ToDo(command.substring(5));
+                list.add(todo);
+                break;
+            }
+            case "dead": {
+                String[] sections = command.substring(9).split(" /by ");
+                Deadline deadline = new Deadline(sections[0], sections[1]);
+                list.add(deadline);
+                break;
+            }
+            case "even": {
+                String[] sections = command.substring(6).split(" /at ");
+                Event event = new Event(sections[0], sections[1]);
+                list.add(event);
+                break;
+            }
+        }
     }
 }

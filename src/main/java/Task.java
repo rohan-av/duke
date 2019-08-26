@@ -9,14 +9,18 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "✓" : "✘"); //return tick or X symbols
+        return (isDone ? "v" : "x"); // returns ticks (v) and crosses (x)
     }
 
-    public String getDescription() {
-        return this.description;
+    public String toString() {
+        return "["
+                + this.getStatusIcon()
+                + "] "
+                + this.description;
     }
 
     public void setDone() {
         this.isDone = true;
     }
+
 }
