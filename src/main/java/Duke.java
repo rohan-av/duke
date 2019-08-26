@@ -23,7 +23,7 @@ public class Duke {
                 break;
             } else if (command.equals("list")) {
                 System.out.println(formatList(list));
-            } else if (command.length() >= 5 && command.substring(0,4).equals("done")) {
+            } else if (command.length() >= 5 && command.substring(0, 4).equals("done")) {
                 int index = Integer.parseInt(command.substring(5));
                 if (list.size() == 0) {
                     System.out.println("List is empty! Please try again.");
@@ -66,24 +66,39 @@ public class Duke {
         return wrap(result);
     }
 
+    private static String formatAdd(Task task){
+        String word = (list.size() == 1) ? "task" : "tasks";
+        String result = "Got it. I've added this task:\n  "
+                + task.toString()
+                + "\nNow you have "
+                + list.size()
+                + " "
+                + word
+                + " in the list.";
+        return wrap(result);
+    }
+
     private static void addTask(String command) {
         String identifier = command.substring(0, 4);
         switch (identifier) {
             case "todo": {
                 ToDo todo = new ToDo(command.substring(5));
                 list.add(todo);
+                System.out.println(formatAdd(todo));
                 break;
             }
             case "dead": {
                 String[] sections = command.substring(9).split(" /by ");
                 Deadline deadline = new Deadline(sections[0], sections[1]);
                 list.add(deadline);
+                System.out.println(formatAdd(deadline));
                 break;
             }
             case "even": {
                 String[] sections = command.substring(6).split(" /at ");
                 Event event = new Event(sections[0], sections[1]);
                 list.add(event);
+                System.out.println(formatAdd(event));
                 break;
             }
         }
