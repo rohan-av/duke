@@ -23,7 +23,7 @@ public class Duke {
                 break;
             } else if (command.equals("list")) {
                 System.out.println(formatList(list));
-            } else if (command.length() >= 5 && command.substring(0, 4).equals("done")) {
+            } else if (command.length() >= 6 && command.substring(0, 4).equals("done")) {
                 int index = Integer.parseInt(command.substring(5));
                 if (list.size() == 0) {
                     System.out.println("List is empty! Please try again.");
@@ -60,6 +60,9 @@ public class Duke {
                 result.append("\n");
             }
         }
+        if (list.size() == 0) {
+            result.append("The list is empty!");
+        }
         return wrap(result.toString());
     }
 
@@ -87,40 +90,48 @@ public class Duke {
         try {
             identifier = command.substring(0, 4);
         } catch (Exception e) {
-            throw new DukeException(command);
+            throw new DukeException(command); //length is less than 4
         }
         switch (identifier) {
             case "todo": {
                 ToDo todo;
+                if (command.length() < 5 || !command.substring(4,5).equals(" ")) {
+                    throw new DukeException(command);
+                }
                 try {
                     todo = new ToDo(command.trim().substring(5));
                 } catch (Exception e) {
-                    throw new DukeException(command);
+                    throw new DukeException(command, "todo"); //empty todo
                 }
-                System.out.println(command.length());
                 list.add(todo);
                 System.out.println(formatAdd(todo));
                 break;
             }
             case "dead": {
+                if (command.length() < 9 || !command.substring(4,9).equals("line ")) { //exception if not fully spelt
+                    throw new DukeException(command);
+                }
                 Deadline deadline;
                 try {
                     String[] sections = command.substring(9).split(" /by ");
                     deadline = new Deadline(sections[0], sections[1]);
                 } catch (Exception e) {
-                    throw new DukeException(command);
+                    throw new DukeException(command,"deadline");
                 }
                 list.add(deadline);
                 System.out.println(formatAdd(deadline));
                 break;
             }
             case "even": {
+                if (command.length() < 6 || !command.substring(4,6).equals("t ")) { //exception if not fully spelt
+                    throw new DukeException(command);
+                }
                 Event event;
                 try {
                     String[] sections = command.substring(6).split(" /at ");
                     event = new Event(sections[0], sections[1]);
                 } catch (Exception e) {
-                    throw new DukeException(command);
+                    throw new DukeException(command, "event");
                 }
                 list.add(event);
                 System.out.println(formatAdd(event));
