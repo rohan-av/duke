@@ -35,7 +35,11 @@ public class Duke {
                     System.out.println(formatDone(list, index));
                 }
             } else {
-                addTask(command);
+                try{
+                    addTask(command);
+                } catch (DukeException e) {
+                    System.out.println(wrap(e.getMessage()));
+                }
             }
         }
     }
@@ -78,28 +82,52 @@ public class Duke {
         return wrap(result);
     }
 
-    private static void addTask(String command) {
-        String identifier = command.substring(0, 4);
+    private static void addTask(String command) throws DukeException {
+        String identifier;
+        try {
+            identifier = command.substring(0, 4);
+        } catch (Exception e) {
+            throw new DukeException(command);
+        }
         switch (identifier) {
             case "todo": {
-                ToDo todo = new ToDo(command.substring(5));
+                ToDo todo;
+                try {
+                    todo = new ToDo(command.trim().substring(5));
+                } catch (Exception e) {
+                    throw new DukeException(command);
+                }
+                System.out.println(command.length());
                 list.add(todo);
                 System.out.println(formatAdd(todo));
                 break;
             }
             case "dead": {
-                String[] sections = command.substring(9).split(" /by ");
-                Deadline deadline = new Deadline(sections[0], sections[1]);
+                Deadline deadline;
+                try {
+                    String[] sections = command.substring(9).split(" /by ");
+                    deadline = new Deadline(sections[0], sections[1]);
+                } catch (Exception e) {
+                    throw new DukeException(command);
+                }
                 list.add(deadline);
                 System.out.println(formatAdd(deadline));
                 break;
             }
             case "even": {
-                String[] sections = command.substring(6).split(" /at ");
-                Event event = new Event(sections[0], sections[1]);
+                Event event;
+                try {
+                    String[] sections = command.substring(6).split(" /at ");
+                    event = new Event(sections[0], sections[1]);
+                } catch (Exception e) {
+                    throw new DukeException(command);
+                }
                 list.add(event);
                 System.out.println(formatAdd(event));
                 break;
+            }
+            default: {
+                throw new DukeException(command);
             }
         }
     }
