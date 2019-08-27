@@ -1,3 +1,9 @@
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,7 +14,12 @@ public class Duke {
      */
     private static ArrayList<Task> list = new ArrayList<>();
 
-    public static void main(String[] args) {
+    /**
+     * main function to execute Duke.
+     * @param args standard params
+     * @throws DukeException a custom exception class for all Duke-related exceptions
+     */
+    public static void main(String[] args) throws DukeException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -18,33 +29,39 @@ public class Duke {
         handleCommand();
     }
 
-    private static void handleCommand() {
+    private static void handleCommand() throws DukeException {
         Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
-            String command = scanner.nextLine();
-            if (command.equals("bye")) {
-                System.out.println(wrap("Bye. Hope to see you again soon!"));
-                break;
-            } else if (command.equals("list")) {
-                System.out.println(formatList(list));
-            } else if (command.length() >= 6 && command.substring(0, 4).equals("done")) {
-                int index = Integer.parseInt(command.substring(5));
-                if (list.size() == 0) {
-                    System.out.println("List is empty! Please try again.");
-                }
-                if (index > list.size() || index < 1) {
-                    System.out.println("Invalid index! Please try again.");
+        try {
+            while (scanner.hasNext()) {
+                String command = scanner.nextLine();
+                if (command.equals("bye")) {
+                    //to terminate the program
+                    System.out.println(wrap("Bye. Hope to see you again soon!"));
+                    break;
+                } else if (command.equals("list")) {
+                    //to print out the list
+                    System.out.println(formatList(list));
+                } else if (command.length() >= 6 && command.substring(0, 4).equals("done")) {
+                    //to mark tasks as done
+                    int index = Integer.parseInt(command.substring(5));
+                    if (list.size() == 0) {
+                        System.out.println("List is empty! Please try again.");
+                    }
+                    if (index > list.size() || index < 1) {
+                        System.out.println("Invalid index! Please try again.");
+                    } else {
+                        list.get(index - 1).setDone();
+                        updateFile();
+                        System.out.println(formatDone(list, index));
+                    }
                 } else {
-                    list.get(index - 1).setDone();
-                    System.out.println(formatDone(list, index));
-                }
-            } else {
-                try {
+                    //to handle regular commands
                     addTask(command);
-                } catch (DukeException e) {
-                    System.out.println(wrap(e.getMessage()));
+                    updateFile();
                 }
             }
+        } catch (DukeException e) {
+            System.out.println(wrap(e.getMessage()));
         }
     }
 
@@ -87,6 +104,27 @@ public class Duke {
                 + word
                 + " in the list.";
         return wrap(result);
+    }
+
+    private static ArrayList<String> formatFile(ArrayList<Task> list) {
+        ArrayList<String> result = new ArrayList<>();
+        for (Task task : list) {
+            result.add(task.toString());
+        }
+        return result;
+    }
+
+    private static void writeFile(ArrayList<String> tasks) throws DukeException {
+        Path file = Paths.get("data","todo_list.txt");
+        try {
+            Files.write(file, tasks, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new DukeException("","io");
+        }
+    }
+
+    private static void updateFile() throws DukeException {
+        writeFile(formatFile(list));
     }
 
     private static void addTask(String command) throws DukeException {

@@ -16,6 +16,10 @@ public class Task {
         return (isDone ? "v" : "x"); // returns ticks (v) and crosses (x)
     }
 
+    /**
+     * method used to return a String representation of the Task, as displayed
+     * on the command line / in todo_list.txt
+     */
     public String toString() {
         return "["
                 + this.getStatusIcon()

@@ -1,11 +1,11 @@
 public class DukeException extends Exception {
     /**
-     * Custom exception class for all Duke-related exceptions
+     * Custom exception class for all Duke-related exceptions.
      */
     private String input;
     private String type = "other";
 
-    DukeException(String input){
+    DukeException(String input) {
         super(input);
         this.input = input;
     }
@@ -16,6 +16,9 @@ public class DukeException extends Exception {
         this.type = type;
     }
 
+    /**
+     * code logic to determine the displayed message.
+     */
     public String getMessage() {
 
         String message = "An unknown exception has occurred.";
@@ -26,7 +29,7 @@ public class DukeException extends Exception {
                     + word
                     + input.trim()
                     + " cannot be empty.";
-        } else if (!type.equals("other") && !type.equals("todo")) {
+        } else if (!type.equals("other")) {
             switch (type) {
                 case "todo": {
                     message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
@@ -38,9 +41,13 @@ public class DukeException extends Exception {
                     break;
                 }
                 case "deadline": {
-                    if (!input.contains("/by")){
+                    if (!input.contains("/by")) {
                         message = "OOPS!!! Deadline is missing a deadline.";
                     }
+                    break;
+                }
+                case "io": {
+                    message = "OOPS!!! An IO exception has occurred.";
                     break;
                 }
                 default: {
