@@ -44,11 +44,28 @@ public class Duke {
             } else if (command.equals("list")) {
                 //to print out the list
                 System.out.println(formatList(list));
+            } else if (command.length() >= 8 && command.substring(0, 6).equals("delete")){
+                //to delete tasks
+                int index = Integer.parseInt(command.substring(7));
+                if (list.size() == 0){
+                    System.out.println("List is empty! Please enter a valid command.");
+                }
+                if (index > list.size() || index < 1) {
+                    System.out.println("Invalid index! Please try again.");
+                } else {
+                    System.out.println(formatDelete(list, index));
+                    list.remove(index - 1);
+                    try {
+                        updateFile();
+                    } catch (Exception e) {
+                        System.out.println("OOPS!!! An IO exception has occurred.");
+                    }
+                }
             } else if (command.length() >= 6 && command.substring(0, 4).equals("done")) {
                 //to mark tasks as done
                 int index = Integer.parseInt(command.substring(5));
                 if (list.size() == 0) {
-                    System.out.println("List is empty! Please try again.");
+                    System.out.println("List is empty! Please enter a valid command.");
                 }
                 if (index > list.size() || index < 1) {
                     System.out.println("Invalid index! Please try again.");
@@ -99,6 +116,19 @@ public class Duke {
         String result = "Nice! I've marked this task as done:\n "
                 + list.get(index - 1).toString()
                 + "\n";
+        return wrap(result);
+    }
+
+    private static String formatDelete(ArrayList<Task> list, int index) {
+        String word = (list.size() == 2) ? "task" : "tasks";
+        String result = "Noted! I've removed this task:\n "
+                + list.get(index - 1).toString()
+                + "\n"
+                + "Now you have "
+                + (list.size() - 1)
+                + " "
+                + word
+                + " in the list.";
         return wrap(result);
     }
 
