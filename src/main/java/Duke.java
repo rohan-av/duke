@@ -17,9 +17,8 @@ public class Duke {
     /**
      * main function to execute Duke.
      * @param args standard params
-     * @throws DukeException a custom exception class for all Duke-related exceptions
      */
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
