@@ -61,6 +61,10 @@ public class Duke {
                         System.out.println("OOPS!!! An IO exception has occurred.");
                     }
                 }
+            } else if (command.length() >= 6 && command.substring(0,4).equals("find")){
+                //to find tasks
+                ArrayList<Task> res = findTask(command.substring(5));
+                System.out.println(formatFind(res));
             } else if (command.length() >= 6 && command.substring(0, 4).equals("done")) {
                 //to mark tasks as done
                 int index = Integer.parseInt(command.substring(5));
@@ -94,6 +98,32 @@ public class Duke {
         return ("\n__________________________________\n"
                 + content
                 + "\n__________________________________\n");
+    }
+
+    private static ArrayList<Task> findTask(String query){
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t: list){
+            if (t.description.contains(query)) result.add(t);
+        }
+        return result;
+    }
+
+    private static String formatFind(ArrayList<Task> list) {
+        StringBuilder result = new StringBuilder();
+        if (list.size() == 0) {
+            result.append("No such results!");
+        } else {
+            result.append("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < list.size(); i++) {
+                result.append(i + 1)
+                        .append(". ")
+                        .append(list.get(i).toString());
+                if (i != list.size() - 1) {
+                    result.append("\n");
+                }
+            }
+        }
+        return wrap(result.toString());
     }
 
     private static String formatList(ArrayList<Task> list) {
