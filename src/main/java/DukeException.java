@@ -50,6 +50,14 @@ public class DukeException extends Exception {
                     message = "OOPS!!! An IO exception has occurred.";
                     break;
                 }
+                case "empty": {
+                    message = "List is empty! Please enter a valid command.";
+                    break;
+                }
+                case "index": {
+                    message = "Invalid index! Please try again.";
+                    break;
+                }
                 default: {
                     message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
                 }
@@ -57,6 +65,6 @@ public class DukeException extends Exception {
         } else {
             message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
-        return message;
+        return Ui.wrap(message);
     }
 }
