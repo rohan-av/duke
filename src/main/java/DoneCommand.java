@@ -11,20 +11,20 @@ public class DoneCommand extends Command {
         }
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         if (taskList.getSize() == 0) {
-            System.out.println("List is empty! Please enter a valid command.");
+            return "List is empty! Please enter a valid command.";
         }
         if (index > taskList.getSize() || index < 1) {
-            System.out.println("Invalid index! Please try again.");
+            return "Invalid index! Please try again.";
         } else {
             taskList.getTaskList().get(index - 1).setDone();
             try {
                 storage.updateFile(taskList);
             } catch (Exception e){
-                System.out.println("OOPS!!! An IO exception has occurred.");
+                return "OOPS!!! An IO exception has occurred.";
             }
-            ui.formatDone(taskList.getTaskList(), index);
+            return ui.formatDone(taskList.getTaskList(), index);
         }
     }
 

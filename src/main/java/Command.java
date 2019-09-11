@@ -2,7 +2,7 @@ abstract class Command {
 
     String message;
 
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     public abstract boolean isExit();
     /*
@@ -13,6 +13,6 @@ abstract class Command {
         doneCommand
         findCommand
         byeCommand
-     */
+    */
 
 }

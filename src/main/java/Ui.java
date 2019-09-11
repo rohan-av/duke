@@ -10,21 +10,21 @@ public class Ui {
     }
 
 
-    void showWelcomeMessage(){
+    String showWelcomeMessage(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo + wrap("What can I do for you?\n"));
+        return "Hello from\n" + logo + wrap("What can I do for you?\n");
     }
 
-    void showByeMessage() {
-        System.out.println(wrap("Bye. Hope to see you again soon!"));
+    String showByeMessage() {
+        return wrap("Bye. Hope to see you again soon!");
     }
 
-    void showError(DukeException e){
-        System.out.println(e.getMessage());
+    String showError(DukeException e){
+        return e.getMessage();
     }
 
     static String wrap(String content) {
@@ -33,7 +33,7 @@ public class Ui {
                 + "\n__________________________________\n");
     }
 
-    void formatFind(ArrayList<Task> list) {
+    String formatFind(ArrayList<Task> list) {
         StringBuilder result = new StringBuilder();
         if (list.size() == 0) {
             result.append("No such results!");
@@ -48,10 +48,10 @@ public class Ui {
                 }
             }
         }
-        System.out.println(wrap(result.toString()));
+        return wrap(result.toString());
     }
 
-    void formatList(ArrayList<Task> list) {
+    String formatList(ArrayList<Task> list) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             result.append(i + 1)
@@ -64,17 +64,17 @@ public class Ui {
         if (list.size() == 0) {
             result.append("The list is empty!");
         }
-        System.out.println(wrap(result.toString()));
+        return wrap(result.toString());
     }
 
-    void formatDone(ArrayList<Task> list, int index) {
+    String formatDone(ArrayList<Task> list, int index) {
         String result = "Nice! I've marked this task as done:\n "
                 + list.get(index - 1).toString()
                 + "\n";
-        System.out.println(wrap(result));
+        return wrap(result);
     }
 
-    void formatDelete(ArrayList<Task> list, int index) {
+    String formatDelete(ArrayList<Task> list, int index) {
         String word = (list.size() == 2) ? "task" : "tasks";
         String result = "Noted! I've removed this task:\n "
                 + list.get(index - 1).toString()
@@ -84,10 +84,10 @@ public class Ui {
                 + " "
                 + word
                 + " in the list.";
-        System.out.println(wrap(result));
+        return wrap(result);
     }
 
-    void formatAdd(ArrayList<Task> list, Task task) {
+    String formatAdd(ArrayList<Task> list, Task task) {
         String word = (list.size() == 1) ? "task" : "tasks";
         String result = "Got it. I've added this task:\n  "
                 + task.toString()
@@ -96,7 +96,7 @@ public class Ui {
                 + " "
                 + word
                 + " in the list.";
-        System.out.println(wrap(result));
+        return wrap(result);
     }
 
 }

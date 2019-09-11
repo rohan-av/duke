@@ -13,20 +13,21 @@ public class DeleteCommand extends Command {
         }
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskList.getSize() == 0){
             throw new DukeException("","empty");
         }
         if (index > taskList.getSize() || index < 1) {
             throw new DukeException("","index");
         } else {
-            ui.formatDelete(taskList.getTaskList(), index);
+            ArrayList<Task> temp = taskList.getTaskList();
             taskList.remove(index - 1);
             try {
                 storage.updateFile(taskList);
             } catch (Exception e) {
                 throw new DukeException("","io");
             }
+            return ui.formatDelete(temp, index);
         }
     }
 
