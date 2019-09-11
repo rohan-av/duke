@@ -31,36 +31,37 @@ public class DukeException extends Exception {
                     + " cannot be empty.";
         } else if (!type.equals("other")) {
             switch (type) {
-                case "todo": {
-                    message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+            case "todo": {
+                message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+                break;
+            }
+            case "event": {
+                if (!input.contains("/at")) {
+                    message = "OOPS!!! Event is missing a location.";
                 }
-                case "event": {
-                    if (!input.contains("/at")) {
-                        message = "OOPS!!! Event is missing a location.";
-                    }
-                    break;
+                break;
+            }
+            case "deadline": {
+                if (!input.contains("/by")) {
+                    message = "OOPS!!! Deadline is missing a deadline.";
                 }
-                case "deadline": {
-                    if (!input.contains("/by")) {
-                        message = "OOPS!!! Deadline is missing a deadline.";
-                    }
-                    break;
-                }
-                case "io": {
-                    message = "OOPS!!! An IO exception has occurred.";
-                    break;
-                }
-                case "empty": {
-                    message = "List is empty! Please enter a valid command.";
-                    break;
-                }
-                case "index": {
-                    message = "Invalid index! Please try again.";
-                    break;
-                }
-                default: {
-                    message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
-                }
+                break;
+            }
+            case "io": {
+                message = "OOPS!!! An IO exception has occurred.";
+                break;
+            }
+            case "empty": {
+                message = "List is empty! Please enter a valid command.";
+                break;
+            }
+            case "index": {
+                message = "Invalid index! Please try again.";
+                break;
+            }
+            default: {
+                message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+            }
             }
         } else {
             message = "OOPS!!! I'm sorry, but I don't know what that means :-(";

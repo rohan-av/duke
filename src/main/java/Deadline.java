@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    protected LocalDateTime byLDT;
+    protected LocalDateTime byDT;
     protected String by;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
 
@@ -19,9 +19,9 @@ public class Deadline extends Task {
                    hh:mm a  (date assumed as today)
          */
         try {
-            this.byLDT = convertToLocalDateTime(simpleDateTime);
-            this.by = this.byLDT.format(dateTimeFormatter);
-        } catch (Exception e){
+            this.byDT = convertToLocalDateTime(simpleDateTime);
+            this.by = this.byDT.format(dateTimeFormatter);
+        } catch (Exception e) {
             this.by = by; // custom deadline
         }
     }
@@ -31,13 +31,13 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
-    private LocalDateTime convertToLocalDateTime(String[] simpleDateTime){
+    private LocalDateTime convertToLocalDateTime(String[] simpleDateTime) {
 
         LocalDateTime now = LocalDateTime.now();
         String defaultDate = now.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String defaultTime = "2359";
 
-        if (simpleDateTime.length == 1){
+        if (simpleDateTime.length == 1) {
             String s = simpleDateTime[0];
             if (s.split(" ").length == 2) {
                 // hh:mm a

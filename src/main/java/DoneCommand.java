@@ -21,7 +21,7 @@ public class DoneCommand extends Command {
             taskList.getTaskList().get(index - 1).setDone();
             try {
                 storage.updateFile(taskList);
-            } catch (Exception e){
+            } catch (Exception e) {
                 return "OOPS!!! An IO exception has occurred.";
             }
             return ui.formatDone(taskList.getTaskList(), index);

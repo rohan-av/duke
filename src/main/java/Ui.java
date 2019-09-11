@@ -10,7 +10,7 @@ public class Ui {
     }
 
 
-    String showWelcomeMessage(){
+    String showWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -23,7 +23,7 @@ public class Ui {
         return wrap("Bye. Hope to see you again soon!");
     }
 
-    String showError(DukeException e){
+    String showError(DukeException e) {
         return e.getMessage();
     }
 

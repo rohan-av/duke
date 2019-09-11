@@ -1,7 +1,7 @@
 class Parser {
 
     static Command parse(String message) throws DukeException {
-        if (message.equals("bye")){
+        if (message.equals("bye")) {
             return new ByeCommand();
         } else if (message.equals("list")) {
             return new ListCommand();

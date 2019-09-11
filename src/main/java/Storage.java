@@ -34,7 +34,7 @@ class Storage {
         ArrayList<String> result = new ArrayList<>();
         try (BufferedReader br = Files.newBufferedReader(file)) {
             String line;
-            while ((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 result.add(line);
             }
         } catch (Exception e) {
@@ -46,7 +46,9 @@ class Storage {
     void loadList(TaskList taskList) throws DukeException {
         // loads data into list
         ArrayList<String> data = readFile();
-        for (String line: data) convertString(taskList, line);
+        for (String line: data) {
+            convertString(taskList, line);
+        }
     }
 
     private void convertString(TaskList taskList, String s) throws DukeException {
@@ -57,32 +59,38 @@ class Storage {
             String description;
             String addendum;
             switch (type) {
-                case "T":
-                    description = s.substring(7);
-                    ToDo todo = new ToDo(description);
-                    if (isDone) todo.setDone();
-                    taskList.add(todo);
-                    break;
-                case "E": {
-                    String[] sections = s.substring(7).split("at:");
-                    description = sections[0].substring(0, sections[0].length() - 2);
-                    addendum = sections[1].substring(1, sections[1].length() - 1);
-                    Event event = new Event(description, addendum);
-                    if (isDone) event.setDone();
-                    taskList.add(event);
-                    break;
+            case "T":
+                description = s.substring(7);
+                ToDo todo = new ToDo(description);
+                if (isDone) {
+                    todo.setDone();
                 }
-                case "D": {
-                    String[] sections = s.substring(7).split("by:");
-                    description = sections[0].substring(0, sections[0].length() - 2);
-                    addendum = sections[1].substring(1, sections[1].length() - 1);
-                    Deadline deadline = new Deadline(description, addendum);
-                    if (isDone) deadline.setDone();
-                    taskList.add(deadline);
-                    break;
+                taskList.add(todo);
+                break;
+            case "E": {
+                String[] sections = s.substring(7).split("at:");
+                description = sections[0].substring(0, sections[0].length() - 2);
+                addendum = sections[1].substring(1, sections[1].length() - 1);
+                Event event = new Event(description, addendum);
+                if (isDone) {
+                    event.setDone();
                 }
-                default:
-                    throw new DukeException("","io");
+                taskList.add(event);
+                break;
+            }
+            case "D": {
+                String[] sections = s.substring(7).split("by:");
+                description = sections[0].substring(0, sections[0].length() - 2);
+                addendum = sections[1].substring(1, sections[1].length() - 1);
+                Deadline deadline = new Deadline(description, addendum);
+                if (isDone) {
+                    deadline.setDone();
+                }
+                taskList.add(deadline);
+                break;
+            }
+            default:
+                throw new DukeException("","io");
             }
 
         } catch (Exception e) {

@@ -12,15 +12,17 @@ public class TaskList {
         list.add(t);
     }
 
-    ArrayList<Task> findTask(String query){
+    ArrayList<Task> findTask(String query) {
         ArrayList<Task> result = new ArrayList<>();
-        for (Task t: list){
-            if (t.description.contains(query)) result.add(t);
+        for (Task t: list) {
+            if (t.description.contains(query)) {
+                result.add(t);
+            }
         }
         return result;
     }
 
-    int getSize(){
+    int getSize() {
         return list.size();
     }
 

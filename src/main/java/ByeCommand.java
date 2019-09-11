@@ -2,7 +2,7 @@ public class ByeCommand extends Command {
 
     private boolean exit = false;
 
-    public String execute(TaskList taskList, Ui ui, Storage storage){
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         exit = true;
         return ui.showByeMessage();
     }

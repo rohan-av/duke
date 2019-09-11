@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     }
 
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        if (taskList.getSize() == 0){
+        if (taskList.getSize() == 0) {
             throw new DukeException("","empty");
         }
         if (index > taskList.getSize() || index < 1) {
