@@ -41,7 +41,7 @@ public class Ui {
      *
      * @return a terminal message from duke.Duke.
      */
-    public String showByeMessage() {
+    public static String showByeMessage() {
         return wrap("Bye. Hope to see you again soon!");
     }
 
