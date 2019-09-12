@@ -1,36 +1,58 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A class inheriting from Task used to represent tasks that have both a description and an
+ * associated deadline.
+ */
 public class Deadline extends Task {
 
-    protected LocalDateTime byDT;
-    protected String by;
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
+    private String by;
 
-    public Deadline(String description, String by) {
+    /**
+     * Constructor for a Deadline task, which consists of the description of the task and the deadline
+     * associated with it.
+     *
+     * The program assumes the following formats for date and time:
+     *         dd/MM/yyyy HHmm
+     *         dd/MM/yyyy hh:mm a
+     *         dd/MM/yyyy          (time assumed as 2359)
+     *                    HHmm
+     *                    hh:mm a  (date assumed as today)
+     *
+     * @param description the description of the task
+     * @param by the deadline associated with the task
+     */
+    Deadline(String description, String by) {
         super(description);
         String[] simpleDateTime = by.trim().split(" ",2);
-        /*
-        The program assumes the following formats for date and time:
-        dd/MM/yyyy HHmm
-        dd/MM/yyyy hh:mm a
-        dd/MM/yyyy          (time assumed as 2359)
-                   HHmm
-                   hh:mm a  (date assumed as today)
-         */
         try {
-            this.byDT = convertToLocalDateTime(simpleDateTime);
-            this.by = this.byDT.format(dateTimeFormatter);
+            LocalDateTime byDT = convertToLocalDateTime(simpleDateTime);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
+            this.by = byDT.format(dateTimeFormatter);
         } catch (Exception e) {
             this.by = by; // custom deadline
         }
     }
 
+    /**
+     * Returns a String representation of the Deadline object, displaying its type (Deadline),
+     * description and the deadline associated with it.
+     *
+     * @return a String representation of the Deadline object
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    /**
+     * Deciphers the date and time mentioned in the input and returns a LocalDateTime object
+     * to be used for standardized date and time representation.
+     *
+     * @param simpleDateTime a String array that is the result of splicing the "by" section of the input command
+     * @return the LocalDateTime object that is translated from the simple date and time keyed in as Strings
+     */
     private LocalDateTime convertToLocalDateTime(String[] simpleDateTime) {
 
         LocalDateTime now = LocalDateTime.now();

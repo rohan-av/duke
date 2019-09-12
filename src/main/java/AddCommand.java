@@ -1,9 +1,26 @@
+/**
+ * A class representing the command to add tasks to the task list.
+ */
 public class AddCommand extends Command {
 
+    /**
+     * Constructor for the command to add a task to the task list.
+     *
+     * @param message the input message that resulted in the creation of the Command
+     */
     AddCommand(String message) {
         this.message = message;
     }
 
+    /**
+     * Modifies the task list in use and returns the messages intended to be displayed.
+     *
+     * @param taskList the TaskList object that contains the task list
+     * @param ui the Ui object that determines the displayed output of Duke
+     * @param storage the storage
+     * @return the string to be displayed in Duke
+     * @throws DukeException if an exception occurs in the parsing of the message or in IO
+     */
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String identifier;
         try {
@@ -62,6 +79,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean value representing whether the program will terminate or not, used in
+     * Duke to reassign a boolean variable checked at each iteration of a while loop.
+     *
+     * @return a boolean value that represents whether the program will terminate after the command
+     */
     @Override
     public boolean isExit() {
         return false;

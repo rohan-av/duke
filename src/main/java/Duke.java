@@ -10,8 +10,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 
 public class Duke extends Application {
     /**
@@ -31,6 +29,10 @@ public class Duke extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Constructor for the Duke object, which initializes the UI, TaskList and Storage in
+     * order to carry out its functions.
+     */
     public Duke() {
         ui = new Ui();
         tasks = new TaskList();
@@ -43,25 +45,39 @@ public class Duke extends Application {
         }
     }
 
+    /**
+     * Runs the program, constantly asking for and responding to user input, finally terminating
+     * upon the word "Bye".
+     */
     private void run() {
-        ui.showWelcomeMessage();
+        System.out.println(ui.showWelcomeMessage());
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                String output = c.execute(tasks, ui, storage);
+                System.out.println(output);
                 isExit = c.isExit();
             } catch (DukeException e) {
-                ui.showError(e);
+                System.out.println(ui.showError(e));
             }
         }
     }
 
+    /**
+     * Main function for Duke, which creates a new Duke object and runs it.
+     * @param args Standard Java arguments for a main function, in this case, not used
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
 
+    /**
+     * Initializes the GUI for Duke
+     *
+     * @param stage todo
+     */
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -135,6 +151,11 @@ public class Duke extends Application {
         });
     }
 
+    /**
+     * todo
+     * @param text
+     * @return
+     */
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
@@ -143,6 +164,9 @@ public class Duke extends Application {
         return textToAdd;
     }
 
+    /**
+     * todo
+     */
     private void handleUserInput() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInput.getText(), user),
@@ -152,8 +176,10 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns a String, which is the response of Duke in accordance to the input.
+     *
+     * @param input the String typed in as an input for Duke
+     * @return the response String to be displayed
      */
     String getResponse(String input) {
         try {

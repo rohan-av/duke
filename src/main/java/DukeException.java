@@ -1,15 +1,29 @@
+/**
+ * Custom exception class for all Duke-related exceptions.
+ */
 public class DukeException extends Exception {
-    /**
-     * Custom exception class for all Duke-related exceptions.
-     */
+
     private String input;
     private String type = "other";
 
+    /**
+     * Constructor for DukeException for default type.
+     *
+     * @param input input message that triggered the exception
+     */
     DukeException(String input) {
         super(input);
         this.input = input;
     }
 
+    /**
+     * Constructor for DukeException for specific Tasks, in order to provide
+     * type-specific error messages.
+     *
+     * @param input input message that triggered the exception
+     * @param type the type of the Task that was attempted to be created which
+     *             caused the exception (i.e. ToDo, Event, or Deadline)
+     */
     DukeException(String input, String type) {
         super(input);
         this.input = input;
@@ -17,7 +31,9 @@ public class DukeException extends Exception {
     }
 
     /**
-     * code logic to determine the displayed message.
+     * Returns the message associated with the type of DukeException that has occurred.
+     *
+     * @return the error message associated with the exception
      */
     public String getMessage() {
 
@@ -67,5 +83,6 @@ public class DukeException extends Exception {
             message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
         return Ui.wrap(message);
+        // wrap is called from Ui in order to standardize the formatting of the output
     }
 }

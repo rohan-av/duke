@@ -1,5 +1,15 @@
+/**
+ * A class used to interpret the incoming messages and translate them into the appropriate Commands.
+ */
 class Parser {
 
+    /**
+     * Returns the Command object interpreted from the input message, and throws a DukeException otherwise.
+     *
+     * @param message the input message to be parsed
+     * @return the Command object interpreted from the input message
+     * @throws DukeException
+     */
     static Command parse(String message) throws DukeException {
         if (message.equals("bye")) {
             return new ByeCommand();
