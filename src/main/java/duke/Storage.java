@@ -1,3 +1,10 @@
+package duke;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -8,12 +15,12 @@ import java.util.ArrayList;
 /**
  * A class to implement persistent storage of the task list using a .txt file.
  */
-class Storage {
+public class Storage {
 
     private Path file;
 
     /**
-     * Constructor for the Storage class.
+     * Constructor for the duke.Storage class.
      *
      * @param file the Path object representing the path to the file being used to store the task list.
      */
@@ -22,9 +29,9 @@ class Storage {
     }
 
     /**
-     * Returns an ArrayList of the String representations of all the Task objects in the task list.
+     * Returns an ArrayList of the String representations of all the duke.tasks.Task objects in the task list.
      *
-     * @param list the task list containing all the Task objects
+     * @param list the task list containing all the duke.tasks.Task objects
      * @return an ArrayList of the String representations of the tasks in the task list
      */
     private ArrayList<String> formatFile(ArrayList<Task> list) {
@@ -72,9 +79,9 @@ class Storage {
 
     /**
      * After reading the file, converts each String representation back into its corresponding
-     * Task object and pushes it into the TaskList.
+     * duke.tasks.Task object and pushes it into the duke.TaskList.
      *
-     * @param taskList the TaskList object used to store the task list
+     * @param taskList the duke.TaskList object used to store the task list
      * @throws DukeException in the case of input or output exceptions
      */
     void loadList(TaskList taskList) throws DukeException {
@@ -86,10 +93,10 @@ class Storage {
     }
 
     /**
-     * Interprets the String, translates it to the appropriate Task object, and adds it
-     * to the TaskList.
+     * Interprets the String, translates it to the appropriate duke.tasks.Task object, and adds it
+     * to the duke.TaskList.
      *
-     * @param taskList the TaskList object used to store the task list
+     * @param taskList the duke.TaskList object used to store the task list
      * @param s the String representation to be converted
      * @throws DukeException in the case of input or output exceptions
      */
@@ -140,12 +147,12 @@ class Storage {
     }
 
     /**
-     * Updates the .txt file with the latest task list found within the Duke program.
+     * Updates the .txt file with the latest task list found within the duke.Duke program.
      *
-     * @param taskList the TaskList object used to store the task list
+     * @param taskList the duke.TaskList object used to store the task list
      * @throws DukeException in the case of input or output exceptions
      */
-    void updateFile(TaskList taskList) throws DukeException {
+    public void updateFile(TaskList taskList) throws DukeException {
         writeFile(formatFile(taskList.getTaskList()));
     }
 

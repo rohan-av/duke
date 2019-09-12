@@ -1,9 +1,13 @@
+package duke;
+
+import duke.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * A class used to read the input commands (for the command line implementation of Duke) and
- * return the messages to be displayed in Duke as a response to the user's input messages.
+ * A class used to read the input duke.commands (for the command line implementation of duke.Duke) and
+ * return the messages to be displayed in duke.Duke as a response to the user's input messages.
  */
 public class Ui {
 
@@ -19,9 +23,9 @@ public class Ui {
     }
 
     /**
-     * Returns a welcome message for Duke.
+     * Returns a welcome message for duke.Duke.
      *
-     * @return a welcome message for Duke
+     * @return a welcome message for duke.Duke
      */
     String showWelcomeMessage() {
         String logo = " ____        _        \n"
@@ -33,19 +37,19 @@ public class Ui {
     }
 
     /**
-     * Returns a final message from Duke in the case of termination.
+     * Returns a final message from duke.Duke in the case of termination.
      *
-     * @return a terminal message from Duke.
+     * @return a terminal message from duke.Duke.
      */
-    String showByeMessage() {
+    public String showByeMessage() {
         return wrap("Bye. Hope to see you again soon!");
     }
 
     /**
-     * Returns the error message associated with the caught DukeException.
+     * Returns the error message associated with the caught duke.DukeException.
      *
-     * @param e the DukeException that was caught
-     * @return the error message associated with the DukeException
+     * @param e the duke.DukeException that was caught
+     * @return the error message associated with the duke.DukeException
      */
     String showError(DukeException e) {
         return e.getMessage();
@@ -70,7 +74,7 @@ public class Ui {
      * @param list the results of the find command
      * @return the formatted String to be displayed
      */
-    String formatFind(ArrayList<Task> list) {
+    public String formatFind(ArrayList<Task> list) {
         StringBuilder result = new StringBuilder();
         if (list.size() == 0) {
             result.append("No such results!");
@@ -95,7 +99,7 @@ public class Ui {
      * @param list the task list
      * @return the formatted String to be displayed
      */
-    String formatList(ArrayList<Task> list) {
+    public String formatList(ArrayList<Task> list) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             result.append(i + 1)
@@ -116,10 +120,10 @@ public class Ui {
      * by the done command.
      *
      * @param list the task list
-     * @param index the index of the Task object that was marked as done
+     * @param index the index of the duke.tasks.Task object that was marked as done
      * @return the formatted String to be displayed
      */
-    String formatDone(ArrayList<Task> list, int index) {
+    public String formatDone(ArrayList<Task> list, int index) {
         String result = "Nice! I've marked this task as done:\n "
                 + list.get(index - 1).toString()
                 + "\n";
@@ -134,7 +138,7 @@ public class Ui {
      * @param index the index of the item that was deleted
      * @return the formatted String to be displayed
      */
-    String formatDelete(ArrayList<Task> list, int index) {
+    public String formatDelete(ArrayList<Task> list, int index) {
         String word = (list.size() == 2) ? "task" : "tasks";
         String result = "Noted! I've removed this task:\n "
                 + list.get(index - 1).toString()
@@ -148,14 +152,14 @@ public class Ui {
     }
 
     /**
-     * Returns a String formatted for display that indicates that a Task object has been added
+     * Returns a String formatted for display that indicates that a duke.tasks.Task object has been added
      * by the add command.
      *
      * @param list the task list
      * @param task the item that was added to the task list
      * @return the formatted String to be displayed
      */
-    String formatAdd(ArrayList<Task> list, Task task) {
+    public String formatAdd(ArrayList<Task> list, Task task) {
         String word = (list.size() == 1) ? "task" : "tasks";
         String result = "Got it. I've added this task:\n  "
                 + task.toString()

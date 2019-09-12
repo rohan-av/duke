@@ -1,14 +1,16 @@
+package duke.tasks;
+
 /**
- * Task class used in Duke. Extended by Event, ToDo, and Deadline.
+ * duke.tasks.Task class used in duke.Duke. Extended by duke.tasks.Event, duke.tasks.ToDo, and duke.tasks.Deadline.
  */
 public class Task {
 
-    String description;
+    private String description;
     private boolean isDone;
 
     /**
-     * Constructor for the Task object, which is not used due to the further categorization
-     * of Task objects into the inherited ToDo, Event and Deadline objects that extend the ToDo Object.
+     * Constructor for the duke.tasks.Task object, which is not used due to the further categorization
+     * of duke.tasks.Task objects into the inherited duke.tasks.ToDo, duke.tasks.Event and duke.tasks.Deadline objects that extend the duke.tasks.ToDo Object.
      *
      * @param description the description of the task
      */
@@ -29,10 +31,19 @@ public class Task {
     }
 
     /**
-     * Return a String representation of the Task, as displayed
+     * Returns the description of the Task object.
+     *
+     * @return the description of the task
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Return a String representation of the duke.tasks.Task, as displayed
      * on the command line / in todo_list.txt
      *
-     * @return a String representation of the Task object
+     * @return a String representation of the duke.tasks.Task object
      */
     public String toString() {
         return "["

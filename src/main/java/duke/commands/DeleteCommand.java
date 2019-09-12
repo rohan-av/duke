@@ -1,5 +1,12 @@
+package duke.commands;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.tasks.Task;
+
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * A class that represents the command to delete an item from the task list.
@@ -9,12 +16,12 @@ public class DeleteCommand extends Command {
     private int index;
 
     /**
-     * Constructor for the Command created to delete a task from the TaskList
+     * Constructor for the duke.Commands.Command created to delete a task from the duke.TaskList
      *
-     * @param message the input message that resulted in the creation of the Command
+     * @param message the input message that resulted in the creation of the duke.Commands.Command
      * @throws DukeException if an exception occurs in the parsing of the message
      */
-    DeleteCommand(String message) throws DukeException {
+    public DeleteCommand(String message) throws DukeException {
         this.message = message;
         try {
             index = Integer.parseInt(message.substring(7));
@@ -26,10 +33,10 @@ public class DeleteCommand extends Command {
     /**
      * Modifies the task list in use and returns the messages intended to be displayed.
      *
-     * @param taskList the TaskList object that contains the task list
-     * @param ui the Ui object that determines the displayed output of Duke
+     * @param taskList the duke.TaskList object that contains the task list
+     * @param ui the Ui object that determines the displayed output of duke.Duke
      * @param storage the storage
-     * @return the string to be displayed in Duke
+     * @return the string to be displayed in duke.Duke
      * @throws DukeException if an exception occurs in the parsing of the message or in IO
      */
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
@@ -52,7 +59,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
-     * Duke to reassign a boolean variable checked at each iteration of a while loop.
+     * duke.Duke to reassign a boolean variable checked at each iteration of a while loop.
      *
      * @return a boolean value that represents whether the program will terminate after the command
      */

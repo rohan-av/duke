@@ -1,3 +1,7 @@
+package duke;
+
+import duke.tasks.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -12,32 +16,32 @@ public class TaskList {
     /**
      * Removes an element from the task list.
      *
-     * @param index the index of the Task in the task list that is to be removed
+     * @param index the index of the duke.tasks.Task in the task list that is to be removed
      */
-    void remove(int index) {
+    public void remove(int index) {
         list.remove(index);
     }
 
     /**
      * Adds an element to the task list.
      *
-     * @param t the Task object to be added to the task list.
+     * @param t the duke.tasks.Task object to be added to the task list.
      */
-    void add(Task t) {
+    public void add(Task t) {
         list.add(t);
     }
 
     /**
-     * Returns a subset of the task list (implemented as an ArrayList of Task objects) that contains
+     * Returns a subset of the task list (implemented as an ArrayList of duke.tasks.Task objects) that contains
      * the query specified in the argument.
      *
      * @param query the search query to be obtained from the input command
-     * @return the ArrayList of Task objects whose description contained the query
+     * @return the ArrayList of duke.tasks.Task objects whose description contained the query
      */
-    ArrayList<Task> findTask(String query) {
+    public ArrayList<Task> findTask(String query) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task t: list) {
-            if (t.description.contains(query)) {
+            if (t.getDescription().contains(query)) {
                 result.add(t);
             }
         }
@@ -49,16 +53,16 @@ public class TaskList {
      *
      * @return the current size of the task list.
      */
-    int getSize() {
+    public int getSize() {
         return list.size();
     }
 
     /**
-     * Returns the task list for Duke, which is implemented as an ArrayList of Task objects.
+     * Returns the task list for duke.Duke, which is implemented as an ArrayList of duke.tasks.Task objects.
      *
      * @return the task list
      */
-    ArrayList<Task> getTaskList() {
+    public ArrayList<Task> getTaskList() {
         return list;
     }
 

@@ -1,14 +1,18 @@
+package duke;
+
+import duke.commands.*;
+
 /**
- * A class used to interpret the incoming messages and translate them into the appropriate Commands.
+ * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
  */
 class Parser {
 
     /**
-     * Returns the Command object interpreted from the input message, and throws a DukeException otherwise.
+     * Returns the duke.Commands.duke.Commands.Command object interpreted from the input message, and throws a duke.DukeException otherwise.
      *
      * @param message the input message to be parsed
-     * @return the Command object interpreted from the input message
-     * @throws DukeException
+     * @return the duke.Commands.duke.Commands.Command object interpreted from the input message
+     * @throws DukeException in the case of parsing errors
      */
     static Command parse(String message) throws DukeException {
         if (message.equals("bye")) {
